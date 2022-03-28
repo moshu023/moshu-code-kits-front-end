@@ -1,24 +1,24 @@
 <template>
     <div class="home center">
         <div class="box">
+            <div class="square" style="--i:0;"></div>
+            <div class="square" style="--i:1;"></div>
+            <div class="square" style="--i:2;"></div>
+            <div class="square" style="--i:3;"></div>
+            <div class="square" style="--i:4;"></div>
             <div class="form">
                 <h2>Login Form</h2>
                 <div class="inputBox">
                     <input type="text" placeholder="username">
                 </div>
                 <div class="inputBox">
-                    <input type="password" placeholder="username">
+                    <input type="password" placeholder="password">
                 </div>
                 <div class="inputBox">
                     <div class="btn center">login</div>
                 </div>
             </div>
 
-            <div class="square" style="--i:0;"></div>
-            <div class="square" style="--i:1;"></div>
-            <div class="square" style="--i:2;"></div>
-            <div class="square" style="--i:3;"></div>
-            <div class="square" style="--i:4;"></div>
         </div>
 
 
@@ -65,6 +65,7 @@
             display: flex;
             align-items: center;
             box-sizing: border-box;
+
             .form{
                 position: relative;
                 width: 100%;
@@ -121,6 +122,7 @@
                         font-weight: 600;
                     }
                 }
+
             }
             .square{
                 position: absolute;
@@ -131,26 +133,56 @@
                 border-bottom:1px solid rgba(255,255,255,0.2);
                 background: rgba(255,255,255,0.1);
                 border-radius: 10px;
-                &:nth-child(0){
+                animation: squareAnime 10s linear infinite;
+                animation-delay: calc(-1s * var(--i));
+                &:nth-child(1){
                     width:100px;
                     height:100px;
                     top:-50px;
                     right:-60px;
                 }
-                &:nth-child(1){
+                &:nth-child(2){
                     width:120px;
                     height:120px;
                     top:150px;
                     left:-100px;
-                    /*z-index:2;*/
+                    z-index:2;
+                }
+                &:nth-child(3){
+                    width:80px;
+                    height:80px;
+                    bottom:50px;
+                    right:-60px;
+                    z-index:2;
+                }
+                &:nth-child(4){
+                    width:50px;
+                    height:50px;
+                    bottom:-80px;
+                    left:100px;
+                }
+                &:nth-child(5){
+                    width:60px;
+                    height:60px;
+                    top:-80px;
+                    left:140px;
                 }
             }
-
         }
 
 
     }
 
+    @keyframes squareAnime {
+        0%,100%
+        {
+            transform: translateY(-40px);
+        }
+        50%
+        {
+            transform: translateY(40px);
+        }
+    }
 
     @keyframes gradient {
         0% {
