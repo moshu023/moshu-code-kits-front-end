@@ -61,10 +61,10 @@
         mounted() {
             // console.log(this.$loading);
             // loading("loading");
-            this.$loading("123");
+            const loading = this.$loading.show();
             setTimeout(() => {
-                console.log(this.$loading)
-            }, 2000)
+                this.$loading.close();
+            }, 3000)
         },
         methods: {
 

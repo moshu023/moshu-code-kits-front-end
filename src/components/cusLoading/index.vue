@@ -10,29 +10,18 @@
 
 <script>
     export default {
-        props:{
-            content: {
-                type: String,
-                default: 'loading'
-            }
-        },
         data() {
             return {
-                // isShowLoading: true,
-                // content: '',
+                content: 'Loading',
             }
         },
         mounted() {
 
         },
         methods: {
-            // show(text){
-            //     this.isShowLoading = true;
-            //     this.content=text;
-            // },
-            // close(){
-            //     this.isShowLoading = false;
-            // }
+            show(text){
+                this.content=text;
+            },
         },
         components: {}
     }
@@ -73,7 +62,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background: rgba(140,140,140,0.3);
+        background: rgba(140,140,140,0.5);
         .loader{
             user-select: none;
             .spinner{
