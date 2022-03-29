@@ -1,5 +1,5 @@
 <template>
-    <div class="cusLoading">
+    <div class="cusLoading" v-if="isShow">
         <div class="loader">
             <div class="spinner"></div>
             <div class="text">{{content}}</div>
@@ -13,6 +13,7 @@
         data() {
             return {
                 content: 'Loading',
+                isShow :false,
             }
         },
         mounted() {
@@ -20,6 +21,7 @@
         },
         methods: {
             show(text){
+                this.isShow = true;
                 this.content=text;
             },
         },

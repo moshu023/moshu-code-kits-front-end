@@ -39,8 +39,13 @@
             </div>
             <!--页面标签-->
             <div class="pageTabsBox">
-                <div class="pageTabsItem">
-
+                <div class="pageTabsItem center" style="padding-right: 16px">
+                    <div class="name cus_font14">主页</div>
+                    <div class="closeBtn iconfont icon-close" v-show = "false"></div>
+                </div>
+                <div class="pageTabsItem center">
+                    <div class="name cus_font14">主页</div>
+                    <div class="closeBtn iconfont icon-close" ></div>
                 </div>
             </div>
 
@@ -51,7 +56,6 @@
 
 <script>
     import cusNav from '../components/cusNav/index.vue'
-    // import loading from '../components/cusLoading/index.js'
     export default {
         data() {
             return {
@@ -59,12 +63,10 @@
             }
         },
         mounted() {
-            // console.log(this.$loading);
-            // loading("loading");
-            const loading = this.$loading.show();
-            setTimeout(() => {
-                this.$loading.close();
-            }, 3000)
+            // const loading = this.$loading.show();
+            // setTimeout(() => {
+            //     this.$loading.close();
+            // }, 3000)
         },
         methods: {
 
@@ -76,6 +78,23 @@
 </script>
 
 <style lang="scss">
+    @keyframes pageTabs {
+        0%{
+            width: 0px;
+        }
+        100%{
+            width: 18px;
+        }
+    }
+    @keyframes pageTabsClose {
+        0%{
+            width: 18px;
+        }
+        100%{
+            width: 0px;
+        }
+    }
+
     .centerPage {
         width: 100%;
         height:100vh;
@@ -85,6 +104,7 @@
         .box{
             flex:1;
             height:100%;
+            background: rgb(245,247,249);
             .breadBox{
                 width: 100%;
                 height:60px;
@@ -92,6 +112,8 @@
                 padding-left:60px;
                 display: flex;
                 align-items: center;
+                background: #fff;
+                box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
                 .bread{
                     flex:1;
                     height:100%;
@@ -124,8 +146,38 @@
 
             .pageTabsBox{
                 width: 100%;
+                height:auto;
                 box-sizing: border-box;
-                padding:20px 16px;
+                padding:10px 16px;
+                display: flex;
+                .pageTabsItem{
+                    position: relative;
+                    width: auto;
+                    height:32px;
+                    padding-left:16px;
+                    padding-right: 8px;
+                    border-radius: 2px;
+                    background: #fff;
+                    margin-right:16px;
+                    cursor: pointer;
+                    .closeBtn{
+                        width:0;
+                        overflow: hidden;
+                        margin-left:8px;
+                        animation: pageTabsClose 0.3s linear;
+                    }
+                    &:hover{
+
+                        .name{
+                            color:#eb4035;
+                        }
+                        .closeBtn{
+                            color:#eb4035;
+                            width:auto;
+                            animation: pageTabs 0.3s linear;
+                        }
+                    }
+                }
             }
         }
     }
