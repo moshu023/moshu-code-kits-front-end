@@ -1,5 +1,5 @@
 import { createStore } from 'vuex'
-
+import createPersistedState from "vuex-persistedstate";
 import routerModule from "./routerStore/index.js";
 const store = createStore({
     state: {
@@ -16,7 +16,8 @@ const store = createStore({
     },
     modules:{
         router:routerModule,
-    }
+    },
+    plugins: [createPersistedState()],
 })
 
 export default store
