@@ -9,13 +9,13 @@
             <div class="form">
                 <h2>Login Form</h2>
                 <div class="inputBox">
-                    <input type="text" placeholder="username">
+                    <input type="text" placeholder="username" v-model="username">
                 </div>
                 <div class="inputBox">
-                    <input type="password" placeholder="password">
+                    <input type="password" placeholder="password" v-model="password">
                 </div>
                 <div class="inputBox">
-                    <div class="btn center">login</div>
+                    <div class="btn center" @click="login">login</div>
                 </div>
             </div>
 
@@ -28,16 +28,22 @@
 <script>
     export default {
         data() {
-            return {}
+            return {
+                username:"",
+                password:"",
+            }
         },
         mounted() {
 
         },
         methods: {
-            toDemo(){
-                this.$router.push("/demo")
-            },
-            
+            login(){
+                this.$loading.show();
+                setTimeout(()=>{
+                    this.$loading.close();
+                    this.$router.push("/center")
+                },1000)
+            }
         },
         components: {}
     }

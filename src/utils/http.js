@@ -19,13 +19,26 @@ const service = axios.create({
 
 // axios 请求拦截 可以设置token
 service.interceptors.request.use(
-    config => { return config },
+    config => {
+        let token = "";//从后台获取token 存储到本地或者其他方式
+        if(token){
+            config.headers.token=token;
+        }
+
+        return config
+    },
     err => { 	return Promise.reject(err); }
 );
 
 //axios 相应拦截
 service.interceptors.response.use(
-    response => {return response },
+    response => {
+        console.log("response("+response.config.url+")---"+JSON.stringify(response.data));
+        if(response.data.code != 200){
+            ElMessage.error(response.data.msg);
+        }
+        return response
+    },
     err => { 	return Promise.reject(err); }
 );
 
