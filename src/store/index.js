@@ -1,4 +1,6 @@
 import { createStore } from 'vuex'
+
+import routerModule from "./routerStore/index.js";
 const store = createStore({
     state: {
 
@@ -11,6 +13,9 @@ const store = createStore({
     },
     getters: {
 
+    },
+    modules:{
+        router:routerModule,
     }
 })
 
