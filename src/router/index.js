@@ -4,11 +4,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
-    { path: '/',name: 'home',component: () => import(/* webpackChunkName: "about" */ '../views/home.vue') },
+    { path: '/',name: 'login',component: () => import(/* webpackChunkName: "about" */ '../views/Login.vue') },
     {
-        path: '/center',
-        name: 'center',
-        component: () => import(/* webpackChunkName: "about" */ '../views/center.vue'),
+        path: '/home',
+        name: 'home',
+        component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue'),
         children:[
             {
                 path: '/center',

@@ -8,7 +8,7 @@ import { ElMessage } from 'element-plus'
 // 配置rootUrl
 const service = axios.create({
     // 基准路径
-    baseURL :"/api",//3、设置开发域名
+    baseURL :"http://localhost:8085",//3、设置开发域名
     //4、 超时时间的设置 ms
     timeout: 3000,
     // withCredentials: true ,// 允许携带cookie
@@ -27,15 +27,15 @@ service.interceptors.request.use(
 
         return config
     },
-    err => { 	return Promise.reject(err); }
+    err => { return Promise.reject(err); }
 );
 
 //axios 相应拦截
 service.interceptors.response.use(
     response => {
         console.log("response("+response.config.url+")---"+JSON.stringify(response.data));
-        if(response.data.code != 200){
-            ElMessage.error(response.data.msg);
+        if(response.data.code !== 200){
+            ElMessage.error(response.data.description);
         }
         return response
     },

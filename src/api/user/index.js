@@ -33,3 +33,6 @@ export const updateUser=(params)=>{
 export const delUser=(params)=>{
     return http.post("/delUser",params);
 }
+export const userLogin=(params)=>{
+    return http.post("/user/login", params);
+}
