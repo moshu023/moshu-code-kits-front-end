@@ -4,7 +4,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
-    { path: '/',name: 'login',component: () => import(/* webpackChunkName: "about" */ '../views/Login.vue') },
+    { path: '/login',name: 'login',component: () => import(/* webpackChunkName: "about" */ '../views/Login.vue') },
+    { path: '/', redirect: '/login' },
+    { path: '/register', name: 'register',component: () => import( '../views/Register.vue') },
     {
         path: '/home',
         name: 'home',

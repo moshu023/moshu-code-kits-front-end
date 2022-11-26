@@ -2,12 +2,12 @@
     <!--页面标签-->
     <div class="pageTabsBox">
         <div class="pageTabsItem center"
-             :class = "{pageTabsItemChoose:routerIndex==index}"
+             :class = "{pageTabsItemChoose:routerIndex===index}"
              v-for="(item,index) in routerList"
              @click="toPage(item,index)"
              style="padding-right: 16px">
             <div class="name cus_font14">{{item.childTitle}}</div>
-            <div class="closeBtn iconfont icon-close" @click.stop="closePage(item,index)" v-show = "index !=0"></div>
+            <div class="closeBtn iconfont icon-close" @click.stop="closePage(item,index)" v-show = "index !==0"></div>
         </div>
     </div>
 </template>

@@ -58,7 +58,6 @@
             background: rgb(245,247,249);
             .views{
                 width: 100%;
-                height:100%;
                 box-sizing: border-box;
                 padding:16px;
             }

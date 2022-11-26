@@ -36,3 +36,10 @@ export const delUser=(params)=>{
 export const userLogin=(params)=>{
     return http.post("/user/login", params);
 }
+
+export const userRegister=(params)=>{
+    return http.post("/user/register", params);
+}
+export const userLogout=()=>{
+    return http.post("/user/logout");
+}

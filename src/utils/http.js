@@ -8,10 +8,10 @@ import { ElMessage } from 'element-plus'
 // 配置rootUrl
 const service = axios.create({
     // 基准路径
-    baseURL :"http://localhost:8085",//3、设置开发域名
+    baseURL :"http://localhost:8085/",//3、设置开发域名
     //4、 超时时间的设置 ms
     timeout: 3000,
-    // withCredentials: true ,// 允许携带cookie
+    withCredentials: true ,// 允许携带cookie
     headers:{
         "Content-Type": "application/json;charset=UTF-8",
     } //5、携带过去的请求头

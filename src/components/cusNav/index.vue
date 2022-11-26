@@ -9,9 +9,9 @@
                 text-color="#d5c0cf"
                 active-text-color="#e9dcba">
             <div class="nameBox">
-                <img class="logo" src="../../assets/logo.png" alt="">
+                <img class="logo" src="../../assets/moshu_kits.jpg" alt="">
 
-                <h4 class="name" v-show="!isCollapse">manager</h4>
+                <h4 class="name" v-show="!isCollapse">Moshu Kits</h4>
             </div>
             <template v-for="(item,navIndex) in navList" :key="navIndex">
                 <el-sub-menu :index="item.title" v-if="item.child.length !=0">

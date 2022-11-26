@@ -8,29 +8,35 @@
       <div class="square" style="--i:4;"></div>
       <div class="form">
         <h2>莫枢工具箱</h2>
-        <el-form :model="loginForm" ref="loginForm" :rules="rules">
+        <el-form :model="registerForm" ref="registerForm" :rules="rules">
           <div class="inputBox">
             <el-form-item prop="userAccount">
-              <el-input type="text" placeholder="用户账号" v-model="loginForm.userAccount" onfocus="this.placeholder=''"
+              <el-input type="text" placeholder="用户账号" v-model="registerForm.userAccount" onfocus="this.placeholder=''"
                         onblur="this.placeholder='用户账号'">
               </el-input>
             </el-form-item>
           </div>
           <div class="inputBox">
             <el-form-item prop="userPassword">
-              <el-input type="password" placeholder="用户密码" v-model="loginForm.userPassword" prop="userPassword"
+              <el-input type="password" placeholder="用户密码" v-model="registerForm.userPassword" prop="userPassword"
                         onfocus="this.placeholder='';this.type='text'"
                         onblur="this.placeholder='用户密码';this.type='password'"/>
             </el-form-item>
           </div>
+          <div class="inputBox">
+            <el-form-item prop="checkPassword">
+              <el-input type="password" placeholder="确认密码" v-model="registerForm.checkPassword" prop="checkPassword"
+                        onfocus="this.placeholder='';this.type='text'"
+                        onblur="this.placeholder='确认密码';this.type='password'"/>
+            </el-form-item>
+          </div>
           <div class="inputBoxForCheck">
             <el-form-item prop="verifyCode">
-              <el-input @keyup.enter.native="login" type="text" placeholder="验证码" v-model="loginForm.verifyCode"
+              <el-input @keyup.enter.native="register" type="text" placeholder="验证码" v-model="registerForm.verifyCode"
                         prop="verifyCode"
                         onfocus="this.placeholder=''" onblur="this.placeholder='验证码'"/>
               <div style=" position:absolute;display:inline-block;margin-left: 10px;">
-                <img id="verifyCode" alt="点击刷新" src='http://localhost:8085/user/check'
-                     style="border-radius: 25px;cursor: pointer;"
+                <img id="verifyCode" alt="点击刷新" src='http://localhost:8085/user/check' style="border-radius: 25px;cursor: pointer;"
                      onclick="this.src='http://localhost:8085/user/check?d='+new Date()*1">
               </div>
             </el-form-item>
@@ -53,11 +59,10 @@
 </template>
 
 <script>
-import {userLogin} from "../api/user";
+import {userRegister} from "../api/user";
 import {ElMessage} from "element-plus";
 
 export default {
-
   data() {
     // 验证用户账号
     const checkUserAccount = (rule, value, callback) => {
@@ -84,6 +89,16 @@ export default {
         callback()
       }
     }
+    // 验证确认密码
+    const checkCheckPassword = (rule, value, callback) => {
+      if (!value) {
+        callback(new Error('用户账户不能为空'))
+      } else if (value.length < 8) {
+        callback(new Error('用户密码不能少于 8 位字符'))
+      } else {
+        callback()
+      }
+    }
     // 验证验证码
     const checkVerifyCode = (rule, value, callback) => {
       if (!value) {
@@ -95,14 +110,16 @@ export default {
       }
     }
     return {
-      loginForm: {
+      registerForm: {
         userAccount: "",
         userPassword: "",
+        checkPassword: "",
         verifyCode: ""
       },
       rules: {
         userAccount: [{required: true, validator: checkUserAccount, trigger: 'blur'}],
         userPassword: [{required: true, validator: checkUserPassword, trigger: 'blur'}],
+        checkPassword: [{required: true, validator: checkCheckPassword, trigger: 'blur'}],
         verifyCode: [{required: true, validator: checkVerifyCode, trigger: 'blur'}]
       }
     }
@@ -111,53 +128,39 @@ export default {
 
   },
   methods: {
-    login() {
-      this.$refs.loginForm.validate(valid => {
+    register() {
+      this.$refs.registerForm.validate(valid => {
         if (valid) {
           this.$loading.show();
           setTimeout(() => {
             this.$loading.close();
-            userLogin(this.loginForm).then(res => {
+            userRegister(this.registerForm).then(res => {
               if (res.code === 200) {
-                this.$router.push("/home")
-                if (res.data.userRole === 'super_admin') {
-                  ElMessage({
-                    type: 'success',
-                    center: true,
-                    message: '尊敬的超级管理员：' + res.data.username + ', 登录成功',
-                  })
-                  // this.$message.success("尊敬的超级管理员：" + res.data.username + ", 登录成功")
-                } else if (res.data.userRole === 'super_admin') {
-                  ElMessage({
-                    type: 'success',
-                    center: true,
-                    message: '尊敬的管理员：' + res.data.username + ', 登录成功',
-                  })
-                  // this.$message.success("尊敬的管理员：" + res.data.username + ", 登录成功")
-                }else {
-                  ElMessage({
-                    type: 'success',
-                    center: true,
-                    message: '尊敬的用户：' + res.data.username + ', 登录成功',
-                  })
-                  // this.$message.success("尊敬的" + res.data.username + ", 登录成功")
-                }
+                this.$router.push("/login")
+                ElMessage({
+                  type: 'success',
+                  center: true,
+                  message: '注册成功，您的昵称为: ' + res.data.username + '去登录吧~',
+                })
+                // this.$message.success("注册成功，您的昵称为: " + res.data.username + "去登录吧~")
               } else {
                 document.getElementById('verifyCode').click();
               }
             })
           }, 1000)
+        } else {
+          document.getElementById('verifyCode').click();
         }
       })
     },
-    register() {
-      this.$router.push("/register")
+    login() {
+      this.$router.push("/login")
     }
   },
   watch: {
-    // 监听路由变化，如果是切换到注册页，则需要刷新一次，清除UI样式缓存
+    // 监听路由变化，如果是切换到登录页，则需要刷新一次，清除UI样式缓存
     $route(to) {
-      if (to.name === '/register') {
+      if (to.name === '/login') {
         location.reload();
       }
     },
@@ -184,7 +187,7 @@ export default {
   .box {
     position: relative;
     width: 400px;
-    height: 340px;
+    height: 400px;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
     backdrop-filter: blur(5px);
